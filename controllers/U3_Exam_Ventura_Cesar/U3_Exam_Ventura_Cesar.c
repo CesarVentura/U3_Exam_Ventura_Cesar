@@ -12,14 +12,26 @@
 #define PI 3.1416
 #define DIST_OBSTACLE 20.0
 
-int main(int argc, char **argv)
-{
+int main(int argc, char **argv){
   
-  wb_robot_init();
-
-  wb_keyboard_enable(TIME_STEP);
+ 
 
   int pressed_key;
+  float Enco1=0;
+  float Enco2=0;
+  float Enco3=0;
+  float ds_Right1=0;
+  float ds_Left2=0;
+
+   //Other variables
+   float compare=0;
+   float turn_right=0;
+   float turn_left=0;
+   int w=0;
+   int g=1;
+   
+   wb_robot_init();
+   wb_keyboard_enable(TIME_STEP);
 
    WbDeviceTag wheel_right = wb_robot_get_device("wheel1");
    WbDeviceTag wheel_left = wb_robot_get_device("wheel2");
@@ -38,9 +50,7 @@ int main(int argc, char **argv)
    wb_position_sensor_enable(Encoder2, TIME_STEP);
    wb_position_sensor_enable(Encoder3, TIME_STEP);
 
-   float Enco1=0;
-   float Enco2=0;
-   float Enco3=0;
+   
 
    //distance sensor devices
    WbDeviceTag dist_sensorR1 = wb_robot_get_device("dist_sensor1");
@@ -49,15 +59,7 @@ int main(int argc, char **argv)
    wb_distance_sensor_enable(dist_sensorR1, TIME_STEP);
    wb_distance_sensor_enable(dist_sensorL2, TIME_STEP);
 
-   float ds_Right1=0;
-   float ds_Left2=0;
-
-   //Other variables
-   float compare=0;
-   float turn_right=0;
-   float turn_left=0;
-   int w=0;
-   int g=1;
+   
 
    printf("Left arrow to move linearly to the left\n");
    printf("Right arrow to move linearly to the Right\n");
@@ -82,7 +84,6 @@ int main(int argc, char **argv)
 
 
         if(pressed_key == WB_KEYBOARD_UP){
-
           wb_motor_set_velocity(wheel_left, 5);
           wb_motor_set_velocity(wheel_right, -5);
           wb_motor_set_velocity(wheel_back, 0);
@@ -91,33 +92,31 @@ int main(int argc, char **argv)
           wb_motor_set_velocity(wheel_left, -5);
           wb_motor_set_velocity(wheel_right, 5);
           wb_motor_set_velocity(wheel_back, 0);
-
-        }
+          }
+          
         else if(pressed_key == WB_KEYBOARD_LEFT){
           wb_motor_set_velocity(wheel_left, 0);
           wb_motor_set_velocity(wheel_right, -5);
           wb_motor_set_velocity(wheel_back, 5);
-
-        }
+         }
+         
         else if(pressed_key == WB_KEYBOARD_RIGHT){
           wb_motor_set_velocity(wheel_left, 0);
           wb_motor_set_velocity(wheel_right, 5);
           wb_motor_set_velocity(wheel_back, -5);
-
-
-        }
+          }
+          
         else if(pressed_key == 'S' ){
           compare = Enco1 + 0.785398;
           turn_left = 1;
         }
 
         else if(turn_left == 1){
-
           if(Enco1 <= compare){
           wb_motor_set_velocity(wheel_left, 5);
           wb_motor_set_velocity(wheel_right,5);
           wb_motor_set_velocity(wheel_back, 5);
-        }
+          }
         else{
           wb_motor_set_velocity(wheel_left, 0);
           wb_motor_set_velocity(wheel_right, 0);
@@ -125,34 +124,33 @@ int main(int argc, char **argv)
           turn_left = 0;
         }
 
-      }
+       }
 
         else if(pressed_key == 'A' ){
         compare = Enco1 - 0.785398;
         turn_right = 1;
-
         }
-         else if(turn_right == 1){
-
-          if(Enco1 >= compare){
+        
+        else if(turn_right == 1){
+             if(Enco1 >= compare){
           wb_motor_set_velocity(wheel_left, -5);
           wb_motor_set_velocity(wheel_right,-5);
           wb_motor_set_velocity(wheel_back, -5);
-        }
+             }
         else{
           wb_motor_set_velocity(wheel_left, 0);
           wb_motor_set_velocity(wheel_right, 0);
           wb_motor_set_velocity(wheel_back, 0);
           turn_right = 0;
         }
-
-        }
+        } 
+        
         else{
           wb_motor_set_velocity(wheel_left, 0);
           wb_motor_set_velocity(wheel_right, 0);
           wb_motor_set_velocity(wheel_back, 0);
         }
-      }
+   }
 
   void automatico()
   {
@@ -206,7 +204,6 @@ int main(int argc, char **argv)
        w = 1;
        g = 0;
      }
-
      else if (pressed_key == 'G')
      {
        g = 1;

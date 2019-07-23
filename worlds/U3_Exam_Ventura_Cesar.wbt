@@ -2,8 +2,8 @@
 WorldInfo {
 }
 Viewpoint {
-  orientation -0.6038897529938289 -0.7553094438690348 -0.2546071684601633 1.0416602398637285
-  position -0.7059534823995861 2.3810843765802012 1.7421658750652362
+  orientation -0.7790716226551752 -0.5989554098625086 -0.1852021159972719 0.7872794035760672
+  position -0.17367576417238073 2.2400066126331 2.9569585667583222
 }
 TexturedBackground {
 }
@@ -765,7 +765,7 @@ Solid {
   }
 }
 Solid {
-  translation 0.9800000000000002 0.51 0.5500000000000002
+  translation 0.9800000000000002 0.51 0.9100000000000004
   children [
     Shape {
       appearance PBRAppearance {
@@ -776,6 +776,38 @@ Solid {
     }
   ]
   name "solid(1)"
+  boundingObject USE obstacler
+  physics Physics {
+  }
+}
+Solid {
+  translation 0.9800000000000002 0.51 -0.22999999999999984
+  children [
+    Shape {
+      appearance PBRAppearance {
+      }
+      geometry Box {
+        size 0.1 1 0.1
+      }
+    }
+  ]
+  name "solid(2)"
+  boundingObject USE obstacler
+  physics Physics {
+  }
+}
+Solid {
+  translation 2.2400000000000007 0.51 0.5600000000000004
+  children [
+    Shape {
+      appearance PBRAppearance {
+      }
+      geometry Box {
+        size 0.1 1 0.1
+      }
+    }
+  ]
+  name "solid(3)"
   boundingObject USE obstacler
   physics Physics {
   }
