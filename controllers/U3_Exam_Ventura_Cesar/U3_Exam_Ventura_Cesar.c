@@ -23,12 +23,12 @@ int main(int argc, char **argv){
   float ds_Right1=0;
   float ds_Left2=0;
 
-   //Other variables
-   float compare=0;
-   float turn_right=0;
-   float turn_left=0;
-   int w=0;
-   int g=1;
+//Other variables
+  float compare=0;
+  float turn_right=0;
+  float turn_left=0;
+  int w=0;
+  int g=1;
    
    wb_robot_init();
    wb_keyboard_enable(TIME_STEP);
@@ -70,92 +70,89 @@ int main(int argc, char **argv){
    printf("G key to set the automatic mode\n");
    printf("W key to set the manual mode\n");
    
-   void manual(){
+ void manual(){
 
-        ds_Right1 = wb_distance_sensor_get_value(dist_sensorR1);
-        ds_Left2 = wb_distance_sensor_get_value(dist_sensorL2);
+       ds_Right1 = wb_distance_sensor_get_value(dist_sensorR1);
+       ds_Left2 = wb_distance_sensor_get_value(dist_sensorL2);
 
-        Enco1 = wb_position_sensor_get_value(Encoder1);
-        Enco2 = wb_position_sensor_get_value(Encoder2);
-        Enco3 = wb_position_sensor_get_value(Encoder3);
+       Enco1 = wb_position_sensor_get_value(Encoder1);
+       Enco2 = wb_position_sensor_get_value(Encoder2);
+       Enco3 = wb_position_sensor_get_value(Encoder3);
 
-   
-
-
-
-        if(pressed_key == WB_KEYBOARD_UP){
-          wb_motor_set_velocity(wheel_left, 5);
-          wb_motor_set_velocity(wheel_right, -5);
-          wb_motor_set_velocity(wheel_back, 0);
-        }
-        else if(pressed_key == WB_KEYBOARD_DOWN){
-          wb_motor_set_velocity(wheel_left, -5);
-          wb_motor_set_velocity(wheel_right, 5);
-          wb_motor_set_velocity(wheel_back, 0);
-          }
-          
-        else if(pressed_key == WB_KEYBOARD_LEFT){
-          wb_motor_set_velocity(wheel_left, 0);
-          wb_motor_set_velocity(wheel_right, -5);
-          wb_motor_set_velocity(wheel_back, 5);
-         }
-         
-        else if(pressed_key == WB_KEYBOARD_RIGHT){
-          wb_motor_set_velocity(wheel_left, 0);
-          wb_motor_set_velocity(wheel_right, 5);
-          wb_motor_set_velocity(wheel_back, -5);
-          }
-          
-        else if(pressed_key == 'S' ){
-          compare = Enco1 + 0.785398;
-          turn_left = 1;
-        }
-
-        else if(turn_left == 1){
-          if(Enco1 <= compare){
-          wb_motor_set_velocity(wheel_left, 5);
-          wb_motor_set_velocity(wheel_right,5);
-          wb_motor_set_velocity(wheel_back, 5);
-          }
-        else{
-          wb_motor_set_velocity(wheel_left, 0);
-          wb_motor_set_velocity(wheel_right, 0);
-          wb_motor_set_velocity(wheel_back, 0);
-          turn_left = 0;
-        }
-
+       if(pressed_key == WB_KEYBOARD_UP) {
+           wb_motor_set_velocity(wheel_left, 5);
+           wb_motor_set_velocity(wheel_right, -5);
+           wb_motor_set_velocity(wheel_back, 0);
        }
+          else if(pressed_key == WB_KEYBOARD_DOWN) {
+           wb_motor_set_velocity(wheel_left, -5);
+           wb_motor_set_velocity(wheel_right, 5);
+           wb_motor_set_velocity(wheel_back, 0);
+          }
+          
+          else if(pressed_key == WB_KEYBOARD_LEFT) {
+           wb_motor_set_velocity(wheel_left, 0);
+           wb_motor_set_velocity(wheel_right, -5);
+           wb_motor_set_velocity(wheel_back, 5);
+          }
+         
+          else if(pressed_key == WB_KEYBOARD_RIGHT) {
+           wb_motor_set_velocity(wheel_left, 0);
+           wb_motor_set_velocity(wheel_right, 5);
+           wb_motor_set_velocity(wheel_back, -5);
+          }
+          
+          else if(pressed_key == 'S' ) {
+           compare = Enco1 + 0.785398;
+           turn_left = 1;
+          }
 
-        else if(pressed_key == 'A' ){
-        compare = Enco1 - 0.785398;
-        turn_right = 1;
+       else if(turn_left == 1) {
+          if(Enco1 <= compare) {
+           
+           wb_motor_set_velocity(wheel_left, 5);
+           wb_motor_set_velocity(wheel_right,5);
+           wb_motor_set_velocity(wheel_back, 5);
+          } 
+            else {
+             wb_motor_set_velocity(wheel_left, 0);
+             wb_motor_set_velocity(wheel_right, 0);
+             wb_motor_set_velocity(wheel_back, 0);
+            turn_left = 0;
+            }  
+
+        }
+
+        else if(pressed_key == 'A' ) {
+          compare = Enco1 - 0.785398;
+          turn_right = 1;
         }
         
-        else if(turn_right == 1){
-             if(Enco1 >= compare){
-          wb_motor_set_velocity(wheel_left, -5);
-          wb_motor_set_velocity(wheel_right,-5);
-          wb_motor_set_velocity(wheel_back, -5);
-             }
-        else{
-          wb_motor_set_velocity(wheel_left, 0);
-          wb_motor_set_velocity(wheel_right, 0);
-          wb_motor_set_velocity(wheel_back, 0);
-          turn_right = 0;
-        }
+        else if(turn_right == 1) {
+             if(Enco1 >= compare) {
+               wb_motor_set_velocity(wheel_left, -5);
+               wb_motor_set_velocity(wheel_right,-5);
+               wb_motor_set_velocity(wheel_back, -5);
+             } 
+             
+               else {
+                wb_motor_set_velocity(wheel_left, 0);
+                wb_motor_set_velocity(wheel_right, 0);
+                wb_motor_set_velocity(wheel_back, 0);
+               turn_right = 0;
+               }
         } 
         
-        else{
+        else {
           wb_motor_set_velocity(wheel_left, 0);
           wb_motor_set_velocity(wheel_right, 0);
           wb_motor_set_velocity(wheel_back, 0);
-        }
+          }
    }
 
   void automatico()
   {
 
-   
     ds_Right1 = wb_distance_sensor_get_value(dist_sensorR1);
     ds_Left2 = wb_distance_sensor_get_value(dist_sensorL2);
 
@@ -165,7 +162,6 @@ int main(int argc, char **argv){
 
     printf("distance_right: %lf\r\n",ds_Right1);
     printf("distance_left: %lf\r\n", ds_Left2);
-
     printf("Encoder1: %lf\r\n", Enco1);
     printf("Encoder2: %lf\r\n", Enco2);
     printf("Encoder3: %lf\r\n", Enco3);
@@ -175,16 +171,16 @@ int main(int argc, char **argv){
     wb_motor_set_velocity(wheel_right, -1.66);
     wb_motor_set_velocity(wheel_back, 0);
 
-    if(ds_Left2 < ds_Right1 && ds_Left2 < 200){
+    if(ds_Left2 < ds_Right1 && ds_Left2 < 200) {
 
-     wb_motor_set_velocity(wheel_left, 1.66);
-     wb_motor_set_velocity(wheel_right, 0);
-     wb_motor_set_velocity(wheel_back, -1.66);
+      wb_motor_set_velocity(wheel_left, 1.66);
+      wb_motor_set_velocity(wheel_right, 0);
+      wb_motor_set_velocity(wheel_back, -1.66);
     }
-    else if(ds_Left2 > ds_Right1 && ds_Right1 < 200){
-     wb_motor_set_velocity(wheel_left, -1.66);
-     wb_motor_set_velocity(wheel_right, 0);
-     wb_motor_set_velocity(wheel_back, 1.66);
+    else if(ds_Left2 > ds_Right1 && ds_Right1 < 200) {
+       wb_motor_set_velocity(wheel_left, -1.66);
+       wb_motor_set_velocity(wheel_right, 0);
+       wb_motor_set_velocity(wheel_back, 1.66);
     }
   }
 
